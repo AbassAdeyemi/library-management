@@ -3,7 +3,9 @@ package com.hayba.librarymanagement.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Table(name = "patrons")
@@ -11,7 +13,9 @@ import java.util.UUID;
 public class Patron {
     @Id
     private UUID id;
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String phoneNumber;
 
     public Patron() {
@@ -39,5 +43,18 @@ public class Patron {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Patron)) return false;
+        Patron patron = (Patron) o;
+        return Objects.equals(getId(), patron.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }
