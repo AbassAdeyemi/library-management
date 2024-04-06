@@ -21,6 +21,16 @@ public class Patron {
     public Patron() {
     }
 
+    private Patron(Builder builder) {
+        setId(builder.id);
+        setName(builder.name);
+        setPhoneNumber(builder.phoneNumber);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public UUID getId() {
         return id;
     }
@@ -56,5 +66,34 @@ public class Patron {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+
+    public static final class Builder {
+        private UUID id;
+        private @NotEmpty String name;
+        private @NotEmpty String phoneNumber;
+
+        private Builder() {
+        }
+
+        public Builder id(UUID val) {
+            id = val;
+            return this;
+        }
+
+        public Builder name(@NotEmpty String val) {
+            name = val;
+            return this;
+        }
+
+        public Builder phoneNumber(@NotEmpty String val) {
+            phoneNumber = val;
+            return this;
+        }
+
+        public Patron build() {
+            return new Patron(this);
+        }
     }
 }

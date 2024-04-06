@@ -34,6 +34,20 @@ public class Book {
     public Book() {
     }
 
+    private Book(Builder builder) {
+        setId(builder.id);
+        setTitle(builder.title);
+        setAuthor(builder.author);
+        setPublicationYear(builder.publicationYear);
+        setIsbn(builder.isbn);
+        setAvailableCopies(builder.availableCopies);
+        version = builder.version;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public UUID getId() {
         return id;
     }
@@ -93,6 +107,58 @@ public class Book {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    public static final class Builder {
+        private UUID id;
+        private @NotEmpty String title;
+        private @NotEmpty String author;
+        private @NotEmpty String publicationYear;
+        private @NotEmpty String isbn;
+        private @Min(1) Integer availableCopies;
+        private int version;
+
+        private Builder() {
+        }
+
+        public Builder id(UUID val) {
+            id = val;
+            return this;
+        }
+
+        public Builder title(@NotEmpty String val) {
+            title = val;
+            return this;
+        }
+
+        public Builder author(@NotEmpty String val) {
+            author = val;
+            return this;
+        }
+
+        public Builder publicationYear(@NotEmpty String val) {
+            publicationYear = val;
+            return this;
+        }
+
+        public Builder isbn(@NotEmpty String val) {
+            isbn = val;
+            return this;
+        }
+
+        public Builder availableCopies(@Min(1) Integer val) {
+            availableCopies = val;
+            return this;
+        }
+
+        public Builder version(int val) {
+            version = val;
+            return this;
+        }
+
+        public Book build() {
+            return new Book(this);
+        }
     }
 }
 

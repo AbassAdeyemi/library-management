@@ -1,5 +1,6 @@
 package com.hayba.librarymanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
@@ -13,6 +14,7 @@ public class BorrowingRecord {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "borrowed_id")
     private Book borrowed;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "borrower_id")
     private Patron borrower;
